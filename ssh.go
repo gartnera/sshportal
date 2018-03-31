@@ -52,7 +52,7 @@ func (c authContext) userType() UserType {
 	switch {
 	case c.inputUsername == "healthcheck":
 		return UserTypeHealthcheck
-	case c.inputUsername == c.user.Name || c.inputUsername == c.user.Email || c.inputUsername == "admin":
+	case c.inputUsername == "admin":
 		return UserTypeShell
 	case strings.HasPrefix(c.inputUsername, "invite:"):
 		return UserTypeInvite
