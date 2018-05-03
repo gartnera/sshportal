@@ -63,6 +63,12 @@
 			"revisionTime": "2017-01-02T12:52:26Z"
 		},
 		{
+			"checksumSHA1": "KGAX0C/36vHJiw04Nrm3rohzW00=",
+			"path": "github.com/jtblin/go-ldap-client",
+			"revision": "b73f66626b33ca4ac4fd6558efbb062c4fe4e52c",
+			"revisionTime": "2017-02-23T12:19:19Z"
+		},
+		{
 			"checksumSHA1": "gGDSJToIqPYPEnKst2qLfuTeIZU=",
 			"path": "github.com/kr/pty",
 			"revision": "2c10821df3c3cf905230d078702dfbe9404c9b23",

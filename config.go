@@ -13,6 +13,8 @@ type configServe struct {
 	logsLocation    string
 	bindAddr        string
 	debug, demo     bool
+	ldapServer      string
+	ldapBase        string
 }
 
 func parseServeConfig(c *cli.Context) (*configServe, error) {
@@ -24,6 +26,8 @@ func parseServeConfig(c *cli.Context) (*configServe, error) {
 		debug:        c.Bool("debug"),
 		demo:         c.Bool("demo"),
 		logsLocation: c.String("logs-location"),
+		ldapServer:   c.String("ldap-server"),
+		ldapBase:     c.String("ldap-base"),
 	}
 	switch len(ret.aesKey) {
 	case 0, 16, 24, 32:

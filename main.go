@@ -79,6 +79,14 @@ func main() {
 					Value: "./log",
 					Usage: "Store user session files",
 				},
+				cli.StringFlag{
+					Name:  "ldap-server",
+					Usage: "Hostname of the LDAP server",
+				},
+				cli.StringFlag{
+					Name:  "ldap-base",
+					Usage: "Base DN for LDAP queries",
+				},
 			},
 		}, {
 			Name:   "healthcheck",
