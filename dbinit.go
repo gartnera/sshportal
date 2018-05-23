@@ -43,8 +43,8 @@ func dbInit(db *gorm.DB) error {
 					Type        string
 					Length      uint
 					Fingerprint string
-					PrivKey     string  `sql:"size:10000"`
-					PubKey      string  `sql:"size:10000"`
+					PrivKey     string  `sql:"type:text"`
+					PubKey      string  `sql:"type:text"`
 					Hosts       []*Host `gorm:"ForeignKey:SSHKeyID"`
 					Comment     string
 				}
@@ -79,7 +79,7 @@ func dbInit(db *gorm.DB) error {
 			Migrate: func(tx *gorm.DB) error {
 				type UserKey struct {
 					gorm.Model
-					Key     []byte `sql:"size:10000"`
+					Key     []byte `sql:"type:blob"`
 					UserID  uint   ``
 					User    *User  `gorm:"ForeignKey:UserID"`
 					Comment string
@@ -329,7 +329,7 @@ func dbInit(db *gorm.DB) error {
 					Domain   string `valid:"required"`
 					Action   string `valid:"required"`
 					Entity   string `valid:"optional"`
-					Args     []byte `sql:"size:10000" valid:"optional,length(1|10000)"`
+					Args     []byte `sql:"type:blob" valid:"optional,length(1|10000)"`
 				}
 				return tx.AutoMigrate(&Event{}).Error
 			},
@@ -341,8 +341,8 @@ func dbInit(db *gorm.DB) error {
 			Migrate: func(tx *gorm.DB) error {
 				type UserKey struct {
 					gorm.Model
-					Key           []byte `sql:"size:10000" valid:"required,length(1|10000)"`
-					AuthorizedKey string `sql:"size:10000" valid:"required,length(1|10000)"`
+					Key           []byte `sql:"type:blob" valid:"required,length(1|10000)"`
+					AuthorizedKey string `sql:"type:text" valid:"required,length(1|10000)"`
 					UserID        uint   ``
 					User          *User  `gorm:"ForeignKey:UserID"`
 					Comment       string `valid:"optional"`
@@ -387,7 +387,7 @@ func dbInit(db *gorm.DB) error {
 					Password    string       `valid:"optional"`
 					SSHKey      *SSHKey      `gorm:"ForeignKey:SSHKeyID"` // SSHKey used to connect by the client
 					SSHKeyID    uint         `gorm:"index"`
-					HostKey     []byte       `sql:"size:10000" valid:"optional"`
+					HostKey     []byte       `sql:"type:blob" valid:"optional"`
 					Groups      []*HostGroup `gorm:"many2many:host_host_groups;"`
 					Fingerprint string       `valid:"optional"` // FIXME: replace with hostKey ?
 					Comment     string       `valid:"optional"`
@@ -449,7 +449,7 @@ func dbInit(db *gorm.DB) error {
 					URL      string
 					SSHKey   *SSHKey      `gorm:"ForeignKey:SSHKeyID"`
 					SSHKeyID uint         `gorm:"index"`
-					HostKey  []byte       `sql:"size:10000"`
+					HostKey  []byte       `sql:"type:text"`
 					Groups   []*HostGroup `gorm:"many2many:host_host_groups;"`
 					Comment  string
 				}
@@ -471,7 +471,7 @@ func dbInit(db *gorm.DB) error {
 					URL      string
 					SSHKey   *SSHKey      `gorm:"ForeignKey:SSHKeyID"`
 					SSHKeyID uint         `gorm:"index"`
-					HostKey  []byte       `sql:"size:10000"`
+					HostKey  []byte       `sql:"type:text"`
 					Groups   []*HostGroup `gorm:"many2many:host_host_groups;"`
 					Comment  string
 					Hop      *Host

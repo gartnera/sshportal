@@ -44,8 +44,8 @@ type SSHKey struct {
 	Type        string  `valid:"required"`
 	Length      uint    `valid:"required"`
 	Fingerprint string  `valid:"optional"`
-	PrivKey     string  `sql:"size:10000" valid:"required"`
-	PubKey      string  `sql:"size:10000" valid:"optional"`
+	PrivKey     string  `sql:"type:text" valid:"required"`
+	PubKey      string  `sql:"type:text" valid:"optional"`
 	Hosts       []*Host `gorm:"ForeignKey:SSHKeyID"`
 	Comment     string  `valid:"optional"`
 }
@@ -60,7 +60,7 @@ type Host struct {
 	URL      string       `valid:"optional"`
 	SSHKey   *SSHKey      `gorm:"ForeignKey:SSHKeyID"` // SSHKey used to connect by the client
 	SSHKeyID uint         `gorm:"index"`
-	HostKey  []byte       `sql:"size:10000" valid:"optional"`
+	HostKey  []byte       `sql:"type:blob" valid:"optional"`
 	Groups   []*HostGroup `gorm:"many2many:host_host_groups;"`
 	Comment  string       `valid:"optional"`
 	Hop      *Host
@@ -70,8 +70,8 @@ type Host struct {
 // UserKey defines a user public key used by sshportal to identify the user
 type UserKey struct {
 	gorm.Model
-	Key           []byte `sql:"size:10000" valid:"required,length(1|10000)"`
-	AuthorizedKey string `sql:"size:10000" valid:"required,length(1|10000)"`
+	Key           []byte `sql:"type:blob" valid:"required,length(1|10000)"`
+	AuthorizedKey string `sql:"type:text" valid:"required,length(1|10000)"`
 	UserID        uint   ``
 	User          *User  `gorm:"ForeignKey:UserID"`
 	Comment       string `valid:"optional"`
@@ -140,7 +140,7 @@ type Event struct {
 	Domain   string                 `valid:"required"`
 	Action   string                 `valid:"required"`
 	Entity   string                 `valid:"optional"`
-	Args     []byte                 `sql:"size:10000" valid:"optional,length(1|10000)" json:"-"`
+	Args     []byte                 `sql:"type:blob" valid:"optional,length(1|10000)" json:"-"`
 	ArgsMap  map[string]interface{} `gorm:"-" json:"Args"`
 }
 

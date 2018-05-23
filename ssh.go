@@ -233,6 +233,7 @@ func bastionClientConfig(ctx ssh.Context, host *Host) (*gossh.ClientConfig, erro
 
 func shellHandler(s ssh.Session) {
 	actx := s.Context().Value(authContextKey).(*authContext)
+	log.Printf("%+v\n", actx)
 	if actx.userType() != UserTypeHealthcheck {
 		log.Printf("New connection(shell): sshUser=%q remote=%q local=%q command=%q dbUser=id:%q,email:%s", s.User(), s.RemoteAddr(), s.LocalAddr(), s.Command(), actx.user.ID, actx.user.Email)
 	}
